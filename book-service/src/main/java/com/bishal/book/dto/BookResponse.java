@@ -1,19 +1,13 @@
-package com.bishal.book.entity;
+package com.bishal.book.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
-public class Book {
-	@Id
+public class BookResponse {
 	private Long bookId;
 	private String bookName;
 	private String issueDate;
