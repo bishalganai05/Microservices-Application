@@ -13,10 +13,6 @@ import com.bishal.book.entity.Book;
 @Repository
 public interface BookRepo extends JpaRepository<Book, Long>{
 	
-	@Query(nativeQuery = true, value = "SELECT book.book_id,book.book_name,book.issue_date,book.student_id FROM studentlibrarymanagement.book book\r\n"
-			+ "join \r\n"
-			+ "studentlibrarymanagement.student student\r\n"
-			+ "on student.student_id = book.student_id\r\n"
-			+ "where book.student_id=:studentId")
+	@Query(nativeQuery = true, value = "SELECT book.book_id,book.book_name,book.issue_date,book.student_id FROM studentlibrarymanagement.book book join studentlibrarymanagement.student student on student.student_id = book.student_id where book.student_id=:studentId")
 	List<Book> findBooksByStudentId(@Param("studentId") Long studentId);
 }

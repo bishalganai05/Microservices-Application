@@ -1,6 +1,7 @@
 package com.bishal.book.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,10 @@ public class BookService {
 
 	public List<BookResponse> getBooksByStudentId(Long id) {
 		List<Book> books = bookRepo.findBooksByStudentId(id);
-		List<BookResponse> BookList = (List<BookResponse>) modelMapper.map(books, BookResponse.class);
-		return null;
+		List<BookResponse> bookList = books.stream()
+		        .map(book -> modelMapper.map(book, BookResponse.class))
+		        .collect(Collectors.toList());
+		return bookList;
 	}
 
 }
