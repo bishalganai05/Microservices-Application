@@ -10,6 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentResponse {
+	private long studentId;
+	private String firstName;
+	private String lastName;
+	private String emailId;
+	private String phoneNumber;
+	private AddressResponse addressResponse; 
+	
 	public StudentResponse(Student student) {
 		this.studentId = student.getStudentId();
 		this.firstName = student.getFirstName();
@@ -17,10 +24,4 @@ public class StudentResponse {
 		this.emailId = student.getEmailId();
 		this.phoneNumber = student.getPhoneNumber();
 	}
-	private long studentId;
-	private String firstName;
-	private String lastName;
-	private String emailId;
-	private String phoneNumber;
-	private long addressId; 
 }
