@@ -7,6 +7,7 @@ import com.bishal.student.dto.AddressResponse;
 import com.bishal.student.dto.StudentRequest;
 import com.bishal.student.dto.StudentResponse;
 import com.bishal.student.entity.Student;
+import com.bishal.student.feignclients.AddressFeignClient;
 import com.bishal.student.repository.StudentRepository;
 
 import reactor.core.publisher.Mono;
@@ -15,10 +16,12 @@ import reactor.core.publisher.Mono;
 public class StudentService {
 	private final StudentRepository studentRepository;
 	private final WebClient webClient;
+	private final AddressFeignClient addressFeignClient;
 
-	public StudentService(StudentRepository studentRepository, WebClient webClient) {
+	public StudentService(StudentRepository studentRepository, WebClient webClient, AddressFeignClient addressFeignClient) {
 		this.studentRepository = studentRepository;
 		this.webClient = webClient;
+		this.addressFeignClient = addressFeignClient;
 	}
 	
 	public StudentResponse createStudent(StudentRequest studentRequest) {
@@ -32,7 +35,8 @@ public class StudentService {
 		Student newStudent = studentRepository.save(student);
 		
 		StudentResponse studentResponse = new StudentResponse(newStudent);
-		studentResponse.setAddressResponse(getAddressById(newStudent.getAddressId()));
+		//studentResponse.setAddressResponse(getAddressById(newStudent.getAddressId()));
+		studentResponse.setAddressResponse(addressFeignClient.getAddressById(newStudent.getAddressId()));
 		
 		return studentResponse; 
 	}
@@ -40,7 +44,8 @@ public class StudentService {
 	public StudentResponse getStudentById(long id) {
 		Student student = studentRepository.findById(id).get();
 		StudentResponse studentResponse = new StudentResponse(student);
-		studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+		//studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+		studentResponse.setAddressResponse(addressFeignClient.getAddressById(student.getAddressId()));
 		
 		return studentResponse;
 	}
