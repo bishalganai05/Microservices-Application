@@ -1,5 +1,7 @@
 package com.bishal.address.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bishal.address.entity.Address;
@@ -9,6 +11,7 @@ import com.bishal.address.response.AddressResponse;
 
 @Service
 public class AddressService {
+	private static final Logger logger = LoggerFactory.getLogger(AddressService.class);
 	
 	private final AddressRespository addressRespository;
 	
@@ -31,6 +34,8 @@ public class AddressService {
 	}
 
 	public AddressResponse getById(long id) {
+		logger.info("Inside getId "+ id);
+		
 		Address address = addressRespository.findById(id).get();
 		return new AddressResponse(address); 
 	}
